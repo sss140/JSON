@@ -43,7 +43,7 @@ struct ContentView: View {
                     /*.onAppear{
                      store.getAll()
                      }*/
-                }.navigationTitle("Movies")
+                }.navigationTitle(self.store.navigationTitle)
             }
         }
     }
