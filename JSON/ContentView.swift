@@ -40,6 +40,7 @@ struct ContentView: View {
                             }
                         }
                     }
+                    
                     /*.onAppear{
                      store.getAll()
                      }*/
