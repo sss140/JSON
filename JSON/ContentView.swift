@@ -12,11 +12,15 @@ struct ContentView: View {
     
     @ObservedObject var store:MovieStore
     @State var searchString:String = ""
+    //@State var time = Timer.publish(every: 0.1, on: .main, in: .tracking).autoconnect()
     
     let columns:[GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
+        
+        
             NavigationView{
+                
                 VStack{
                     
                     TextField("StringProtocol", text: $searchString
@@ -25,31 +29,32 @@ struct ContentView: View {
                                 
                                 self.store.changeSearchString(searchString: sendString)
                               })
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    ScrollView{
                         
-                ScrollView{
-                    LazyVGrid(columns:columns){
-                        ForEach(store.movies ?? [Movie](), id:\.imdbID){ movie in
-                            NavigationLink(destination: Text(movie.title)){
-                                VStack{
-                                    URLImage(url: movie.poster)
-                                        .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 150)
-                                    Text(movie.title)
-                                        .frame(maxHeight:.infinity,alignment:.top)
+                        LazyVGrid(columns:columns){
+                            ForEach(store.movies ?? [Movie](), id:\.imdbID){ movie in
+                                NavigationLink(destination: Text(movie.title)){
+                                    VStack{
+                                        URLImage(url: movie.poster)
+                                            .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 150)
+                                        Text(movie.title)
+                                            .frame(maxHeight:.infinity,alignment:.top)
+                                    }
+                                }.onAppear{
+                                    if movie.title == store.movies?.last?.title{
+                                        print("last")
+                                    }
                                 }
                             }
-                        }
-                    }
-                    
-                    /*.onAppear{
-                     store.getAll()
-                     }*/
-                }.navigationTitle(self.store.navigationTitle)
+                            
+                        }.navigationTitle(self.store.navigationTitle)
+                }
             }
         }
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(store:MovieStore())

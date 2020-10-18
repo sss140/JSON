@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Sample: View {
+    
     var body: some View {
         Image(systemName: "icloud.slash").renderingMode(.original).resizable()
     }

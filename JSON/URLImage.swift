@@ -20,9 +20,9 @@ struct URLImage: View {
     }
     var body: some View {
         if let data = self.imageLoader.downloadedData{
-             Image(uiImage: UIImage(data: data)!).renderingMode(.original).resizable()
+             return Image(uiImage: UIImage(data: data)!).renderingMode(.original).resizable()
         }else{
-             Image(systemName: "icloud.slash")
+             return Image("placeholder")
                 .renderingMode(.original).resizable()
         }
     }
